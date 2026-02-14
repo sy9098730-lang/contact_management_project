@@ -1,4 +1,4 @@
-# contact_management_project
+ # contact_management_project
 
 rom cryptography.fernet import Fernet
 import hashlib
@@ -38,3 +38,9 @@ class Auth:
             
         except:
           print("User Already Exists")  
+      def login(self, username, password):
+         hash_password = self.hash_password(password)
+         cursor.execute("SELECT * FROM users WHERE username=? AND password=?", (username, hash_password))
+         return cursor.fetchone()
+    
+    
