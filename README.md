@@ -24,3 +24,17 @@ CREATE TABLE IF NOT EXISTS contacts (
 	name TEXT,
 	phone BLOB
 	"""))
+
+class Auth:
+    def hash_password(self, password):
+        return hashlib.sha256(password.encode()).hexdigest()
+    
+    def register(self, name, password):
+        hash_password = self.hash_password(password)
+        try:
+            cursor.execute("INSERT INTO users VALUES(?,?)", (name, hash_password))   
+            conn.commit()
+            print("Registration Successfull")
+            
+        except:
+          print("User Already Exists")  
